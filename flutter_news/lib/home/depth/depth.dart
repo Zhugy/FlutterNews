@@ -6,6 +6,7 @@ import 'package:flutter_news/models/home_banner.dart';
 import 'package:flutter_news/home/depth/depth_service.dart';
 import 'package:flutter_news/models/history_today.dart';
 import 'package:flutter_news/models/depth_cotent_model.dart';
+import '../depth/alert_message.dart';
 
 class HomeDepth extends StatefulWidget {
   @override
@@ -131,55 +132,64 @@ class _HomeDepth extends State<HomeDepth> {
               color: Colors.grey)
         ],
       ),
-      child: Center(
-        child: Row(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(left: 25),
-              child: Text(
-                model.dateInfo.day,
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff191919)),
-              ),
-            ),
-            Container(
-              width: 4,
-              height: 27,
-              margin: EdgeInsets.only(left: 15, right: 13),
-              color: Colors.grey,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  model.dateInfo.monthShort,
+      child: Stack(children: <Widget>[
+        Center(
+          child: Row(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(left: 25),
+                child: Text(
+                  model.dateInfo.day,
                   style: TextStyle(
-                      fontSize: 17,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff7f7f7f)),
+                      color: Color(0xff191919)),
                 ),
-                Text(model.dateInfo.year,
+              ),
+              Container(
+                width: 4,
+                height: 27,
+                margin: EdgeInsets.only(left: 15, right: 13),
+                color: Colors.grey,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    model.dateInfo.monthShort,
                     style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xff191919)))
-              ],
-            ),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(left: 33, right: 36),
-                child: Text(model.title,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                        color: Color(0xffb1b1b1))),
+                        color: Color(0xff7f7f7f)),
+                  ),
+                  Text(model.dateInfo.year,
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff191919)))
+                ],
               ),
-            )
-          ],
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(left: 33, right: 36),
+                  child: Text(model.title,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Color(0xffb1b1b1))),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
+        GestureDetector(
+          onTap: (){
+            Navigator.of(context).push(PageRouteBuilder(barrierColor: Colors.white10,opaque: false,  pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+              return HistoryAlert(historyTodayModel: model);
+            }));
+          },
+        ),
+      ],)
     );
   }
 
