@@ -40,6 +40,12 @@ dev_dependencies:
 
   json_serializable: ^3.4.1
   build_runner: ^1.7.0
+  sprintf: ^4.0.0
+  cached_network_image: ^2.0.0-rc
+  material_segmented_control: ^2.1.0+1
+  chewie: ^0.9.10
+  video_player: ^0.10.12+2
+  english_words: ^3.1.0
 
 
 # For information on the generic Dart part of this file, see the
@@ -53,10 +59,53 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+    # To add assets to your application, add an assets section, like this:
+  assets:
+    - images/IMG_5037.JPG
+    - images/girlHead.jpg
+    - images/aplive_fans_colours_barrage.png
+    - images/aplive_fans_rank.png
+    - images/aplive_fans_rank_1.png
+    - images/aplive_fans_rank_3.png
+    - images/aplive_fans_rank_2.png
+    - images/aplive_fans_symbol.png
+    - images/lv/aplive_fans_Lv1.png
+    - images/lv/aplive_fans_Lv2.png
+    - images/lv/aplive_fans_Lv3.png
+    - images/lv/aplive_fans_Lv4.png
+    - images/lv/aplive_fans_Lv5.png
+    - images/lv/aplive_fans_Lv6.png
+    - images/lv/aplive_fans_Lv7.png
+    - images/lv/aplive_fans_Lv8.png
+    - images/lv/aplive_fans_Lv9.png
+    - images/lv/aplive_fans_Lv10.png
+    - images/lv/aplive_fans_Lv11.png
+    - images/lv/aplive_fans_Lv12.png
+    - images/lv/aplive_fans_Lv13.png
+    - images/lv/aplive_fans_Lv14.png
+    - images/lv/aplive_fans_Lv15.png
+    - images/lv/aplive_fans_Lv16.png
+    - images/lv/aplive_fans_Lv17.png
+    - images/lv/aplive_fans_Lv18.png
+    - images/lv/aplive_fans_Lv19.png
+    - images/lv/aplive_fans_Lv20.png
+    - images/lv/aplive_fans_Lv21.png
+    - images/lv/aplive_fans_Lv22.png
+    - images/lv/aplive_fans_Lv23.png
+    - images/lv/aplive_fans_Lv24.png
+    - images/lv/aplive_fans_Lv25.png
+    - images/lv/aplive_fans_Lv26.png
+    - images/lv/aplive_fans_Lv27.png
+    - images/lv/aplive_fans_Lv28.png
+    - images/lv/aplive_fans_Lv29.png
+    - images/lv/aplive_fans_Lv20.png
+    - images/lv/bg1-10.png
+    - images/lv/bg11-20.png
+    - images/lv/bg21-30.png
+    - images/alert/aplive_fans_colours_barrage.png
+    - images/alert/aplive_fans_rank.png
+    - images/alert/aplive_fans_symbol.png
+    - images/alert/aplive_fans_h5.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

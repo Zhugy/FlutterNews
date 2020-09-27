@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Mine/fans_rank.dart';
 
 class Mine extends StatefulWidget {
   @override
@@ -13,7 +14,19 @@ class _Mine extends State<Mine> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(title: Text("我的"),),
-      body: Center(child: Text("我的"),),
+      body: Center(child: ListView.separated(
+          itemBuilder: (context, index) {
+            return Divider();
+          },
+          separatorBuilder: (context, index){
+            return ListTile(title: Text("排行榜单"),onTap: (){
+              Navigator.of(context).push(PageRouteBuilder(pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+                return FansRank();
+              }));
+            },);
+          },
+          itemCount: 10),
+      ),
     );
   }
 }
