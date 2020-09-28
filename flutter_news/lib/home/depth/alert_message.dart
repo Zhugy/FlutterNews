@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news/models/history_today.dart';
+import 'package:flutter_news/tool/show_image.dart';
 
 class HistoryAlert extends StatefulWidget {
 
@@ -74,10 +75,18 @@ class _HistoryAlert extends State<HistoryAlert> {
             margin: EdgeInsets.only(left: 16, top: 20),
             width: 170,
             height: 128,
-            child: Image.network(
+            child: Stack(
+              children: <Widget>[
+                Image.network(
               historyTodayModel.images.first.image,
               fit: BoxFit.cover,
             ),
+                GestureDetector(onTap: (){
+                  Navigator.of(context).push(PageRouteBuilder(pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+                    return ShowImage(imageArr: [historyTodayModel.images.first.image,historyTodayModel.images.first.image,historyTodayModel.images.first.image]);
+                  }));
+                },),
+              ],),
           ),
           Container(
             margin: EdgeInsets.only(left: 17, right: 17, top: 20),
