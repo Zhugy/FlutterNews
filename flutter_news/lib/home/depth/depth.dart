@@ -15,7 +15,7 @@ class HomeDepth extends StatefulWidget {
   }
 }
 
-class _HomeDepth extends State<HomeDepth> {
+class _HomeDepth extends State<HomeDepth> with AutomaticKeepAliveClientMixin {
   double _screenWidth;
 
   // 轮播图
@@ -261,4 +261,13 @@ class _HomeDepth extends State<HomeDepth> {
           itemCount: service.modelArr.length),
     );
   }
+
+  // 重写
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+
+
+
 }

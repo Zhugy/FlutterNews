@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../home/depth/depth.dart';
 import '../home/news/news_knowledge.dart';
+import '../home/video/video_home.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> with SingleTickerProviderStateMixin {
 
   final _tabsName = ["深度","新知", "视频"];
-  final _tabControlleArr = [HomeDepth(), NewsKnowledge(), HomeDepth()];
+  final _tabControlleArr = [HomeDepth(), NewsKnowledge(), VideoHome()];
   TabController _tabController;
 
   Widget _tabBar() {

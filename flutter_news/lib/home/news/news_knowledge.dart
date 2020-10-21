@@ -10,7 +10,7 @@ class NewsKnowledge extends StatefulWidget {
   }
 }
 
-class _NewsKnowledge extends State<NewsKnowledge> {
+class _NewsKnowledge extends State<NewsKnowledge> with AutomaticKeepAliveClientMixin {
   Widget _itemCell(NewsKnowledgeModel model) {
     return Container(
       margin: EdgeInsets.only(left: 13, right: 13),
@@ -83,8 +83,10 @@ class _NewsKnowledge extends State<NewsKnowledge> {
     String content = response.data.toString();
     var arr = newsKnowledgeModelFromJson(content);
     listModel = arr;
-    setState(() {
-    });
+    if (mounted) {
+      setState(() {
+      });
+    }
   }
 
   List<NewsKnowledgeModel> listModel = [];
@@ -108,4 +110,9 @@ class _NewsKnowledge extends State<NewsKnowledge> {
           itemCount: listModel.length),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+
 }
