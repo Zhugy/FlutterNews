@@ -51,7 +51,15 @@ class _NewsKnowledge extends State<NewsKnowledge> with AutomaticKeepAliveClientM
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  child: Text(model.onlineAt.toIso8601String(), style: TextStyle(fontSize: 14,color: Color(0xffb2b2b2)),),
+                  child: SizedBox(
+                      width: 90,
+                      child: Text(
+                        model.onlineAt.toIso8601String(),
+                        maxLines: 1,
+                        style:
+                            TextStyle(fontSize: 14, color: Color(0xffb2b2b2)),
+                      )
+                  ),
                 ),
                 Container(
                   width: 100,
