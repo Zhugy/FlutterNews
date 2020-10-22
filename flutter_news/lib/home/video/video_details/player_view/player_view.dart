@@ -68,12 +68,13 @@ class Player {
   }
 
   void _initState(String videoUrl) {
+    // dispose();
     _videoPlayerController = VideoPlayerController.network(videoUrl);
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      aspectRatio: 3 / 2,
+      aspectRatio: 16.0/9.0,
       autoPlay: true,
-      looping: true,
+      looping: false,
       showControls: true,
       placeholder: new Container(
         color: Colors.grey,
@@ -85,12 +86,17 @@ class Player {
   Widget createPlayerView(String videoUrl) {
 
     _initState(videoUrl);
-    return Chewie(controller: _chewieController,);
+    return Chewie(controller: _chewieController);
   }
 
   void dispose() {
-    _videoPlayerController.dispose();
-    _chewieController.dispose();
+    if (_videoPlayerController != null) {
+      _videoPlayerController.dispose();
+    }
+
+    if (_chewieController != null) {
+      _chewieController.dispose();
+    }
   }
 
 }

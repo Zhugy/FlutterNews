@@ -4,7 +4,8 @@ import 'package:chewie/chewie.dart';
 import '../video_details/player_view/player_view.dart';
 
 class VideoDetailsHome extends StatefulWidget {
-  VideoDetailsHome({Key key, @required  this.videoUrl}) : assert(videoUrl != null);
+  VideoDetailsHome({Key key, @required this.videoUrl})
+      : assert(videoUrl != null);
   final String videoUrl;
 
   @override
@@ -14,23 +15,26 @@ class VideoDetailsHome extends StatefulWidget {
 }
 
 class _VideoDetailsHome extends State<VideoDetailsHome> {
-
   @override
   void initState() {
     super.initState();
+
   }
 
   @override
   void dispose() {
-    super.dispose();
     Player.defaultPlayer().dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("播放器"),),
+      appBar: AppBar(
+        title: Text("播放器"),
+      ),
       body: Container(
+        color: Colors.amberAccent,
         child: Column(
           children: [
             Player.defaultPlayer().createPlayerView(widget.videoUrl),
