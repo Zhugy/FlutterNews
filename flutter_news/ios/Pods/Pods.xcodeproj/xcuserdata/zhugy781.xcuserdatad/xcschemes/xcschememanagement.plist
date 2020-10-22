@@ -24,32 +24,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>path_provider_linux.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>path_provider_macos.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>path_provider_windows.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>sqflite.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>video_player.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>video_player_web.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

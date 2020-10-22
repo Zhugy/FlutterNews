@@ -94,16 +94,18 @@ Widget videoItemView(HomeVideo itemVideo, ClickPlayerButtonBuilder clickBuilder)
           ),
         ),
         Container(
-          margin: EdgeInsets.only(left: 10, right: 10, bottom: 16),
+          margin: EdgeInsets.only(left: 10, right: 10, top: 6),
           color: Colors.white,
           child: Text(
             itemVideo.title,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(
                 color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold),
           ),
         ),
       ],
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
     ),
   );

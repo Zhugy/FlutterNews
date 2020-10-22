@@ -173,6 +173,8 @@ class _HomeDepth extends State<HomeDepth> with AutomaticKeepAliveClientMixin {
                 child: Container(
                   margin: EdgeInsets.only(left: 33, right: 36),
                   child: Text(model.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
