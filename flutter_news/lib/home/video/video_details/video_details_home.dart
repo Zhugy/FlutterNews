@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news/home/video/video_model.dart';
-import 'package:chewie/chewie.dart';
 import '../video_details/player_view/player_view.dart';
+import 'package:flutter_news/home/video/video_details/list_view/list_view.dart';
 
 class VideoDetailsHome extends StatefulWidget {
   VideoDetailsHome({Key key, @required this.videoUrl})
@@ -34,10 +34,11 @@ class _VideoDetailsHome extends State<VideoDetailsHome> {
         title: Text("播放器"),
       ),
       body: Container(
-        color: Colors.amberAccent,
+        color: Colors.lightBlueAccent,
         child: Column(
           children: [
             Player.defaultPlayer().createPlayerView(widget.videoUrl),
+            Expanded(child: Container(child: PlayListView(),)),
           ],
         ),
       ),
