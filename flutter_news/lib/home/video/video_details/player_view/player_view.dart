@@ -22,13 +22,15 @@ class Player {
       }
     }
 
-    _videoPlayerController = VideoPlayerController.network(videoUrl);
+    _videoPlayerController = VideoPlayerController.network(videoUrl, formatHint: VideoFormat.other,);
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      aspectRatio: 16.0/9.0,
+      aspectRatio: 16/9,
       autoPlay: true,
       looping: false,
-      showControls: true,
+      showControls: false,
+      isLive: true,
+      fullScreenByDefault: false,
       placeholder: new Container(
         color: Colors.grey,
       ),

@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_news/models/news_knowlege_model.dart';
+import 'package:flutter_news/Share/share_view.dart';
 
 class NewsKnowledge extends StatefulWidget {
   @override
@@ -68,10 +70,29 @@ class _NewsKnowledge extends State<NewsKnowledge> with AutomaticKeepAliveClientM
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        child: Icon(Icons.face,size: 25,),
+                        child: IconButton(icon: Icon(Icons.face), iconSize: 25 ,onPressed: (){
+                          print("点击了一个按钮");
+                        })
                       ),
                       Container(
-                        child: Icon(Icons.share,size: 25,),
+                        child: IconButton(
+                            icon: Icon(Icons.share),
+                            iconSize: 25,
+                            onPressed: () {
+                             /* Navigator.of(context).push(PageRouteBuilder(
+                                  opaque: false,
+                                  pageBuilder: (BuildContext context,
+                                      Animation<double> animation,
+                                      Animation<double> secondaryAnimation) {
+                                    return ShareView();
+                                  }
+                                  )
+                              );*/
+
+                             showModalBottomSheet(context: context, builder: (BuildContext context) {
+                               return ShareView();
+                             });
+                            }),
                       ),
                     ],
                   ),
