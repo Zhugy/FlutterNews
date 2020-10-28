@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news/home/video/video_model.dart';
 import '../video_details/player_view/player_view.dart';
 import 'package:flutter_news/home/video/video_details/list_view/list_view.dart';
+import 'package:dio/dio.dart';
 
 class VideoDetailsHome extends StatefulWidget {
-  VideoDetailsHome({Key key, @required this.videoUrl})
-      : assert(videoUrl != null);
-  final String videoUrl;
+  VideoDetailsHome({Key key, @required this.homeVideo,})
+      : assert(homeVideo != null);
+  final HomeVideo homeVideo;
 
   @override
   State<StatefulWidget> createState() {
@@ -18,7 +19,6 @@ class _VideoDetailsHome extends State<VideoDetailsHome> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -37,8 +37,8 @@ class _VideoDetailsHome extends State<VideoDetailsHome> {
         color: Colors.white,
         child: Column(
           children: [
-            Player.defaultPlayer().createPlayerView(widget.videoUrl),
-            Expanded(child: Container(child: PlayListView(),)),
+            Player.defaultPlayer().createPlayerView(widget.homeVideo.videos[0].playUrl),
+            Expanded(child: Container(child: PlayListView(homeVideo: widget.homeVideo,),)),
           ],
         ),
       ),

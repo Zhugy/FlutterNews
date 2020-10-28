@@ -42,7 +42,7 @@ class _VideoHome extends State<VideoHome> with AutomaticKeepAliveClientMixin {
           itemBuilder: (BuildContext context, int index) {
             return videoItemView(_dataArr[index], (HomeVideo videoItem) {
               Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                return VideoDetailsHome(videoUrl: videoItem.videos[0].playUrl,);
+                return VideoDetailsHome(homeVideo: videoItem,);
               }));
               print(videoItem.title);
             });

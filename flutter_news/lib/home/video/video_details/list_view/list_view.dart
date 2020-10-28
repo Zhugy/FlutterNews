@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_news/home/video/video_details/list_view/list_item_model.dart';
+import 'package:flutter_news/home/video/video_model.dart';
+
 
 class PlayListView extends StatefulWidget {
+
+  final HomeVideo homeVideo;
+  PlayListView({Key key, @required this.homeVideo,});
+
   @override
   State<StatefulWidget> createState() {
     return _PlayListView();
@@ -8,9 +16,9 @@ class PlayListView extends StatefulWidget {
 }
 
 class _PlayListView extends State<PlayListView> {
-  get onPressed => null;
+  List<DetailsListModel> _listArr = [];
 
-  Widget _titleView() {
+  Widget _titleView(String title) {
     return Container(
         height: 85,
         padding: EdgeInsets.all(15),
@@ -18,15 +26,15 @@ class _PlayListView extends State<PlayListView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "啥都不吃金黄色的",
+            Expanded(child: Text(
+              title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   color: Colors.black87,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
-            ),
+            ),),
             Container(
               width: 30,
               height: 30,
@@ -61,7 +69,7 @@ class _PlayListView extends State<PlayListView> {
               Container(
                 padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
                 child: Image.network(
-                    "https://guokrapp-static.guokr.com/FrAgqNynqHiPGcBJNXgVIJG4Tspz"),
+                    widget.homeVideo.sources.first.avatar),
               ),
               Container(
                 padding: EdgeInsets.only(left: 20),
@@ -70,14 +78,14 @@ class _PlayListView extends State<PlayListView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "大魔术师",
+                      widget.homeVideo.sources.first.name,
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "频道共收录1200篇内容",
+                      "频道共收录${widget.homeVideo.sources.first.articleCount}篇内容",
                       maxLines: 2,
                       style: TextStyle(
                           color: Colors.black87,
@@ -99,12 +107,11 @@ class _PlayListView extends State<PlayListView> {
     );
   }
 
-  Widget _contenteItemView() {
+  Widget _contenteItemView(DetailsListModel itemModel) {
     return Container(
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             child: Container(
@@ -116,7 +123,7 @@ class _PlayListView extends State<PlayListView> {
                 children: [
                   Container(
                     child: Text(
-                      "教你怎么欺负五颜六色的市的从软萌水宝宝",
+                      itemModel.title,
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 13,
@@ -130,7 +137,7 @@ class _PlayListView extends State<PlayListView> {
                       children: [
                         Container(
                           child: Text(
-                            "教你",
+                            itemModel.sources.isNotEmpty ? itemModel.sources.first.name : "这是空的",
                             style: TextStyle(
                                 color: Colors.black87,
                                 fontSize: 13,
@@ -139,7 +146,7 @@ class _PlayListView extends State<PlayListView> {
                         ),
                         Container(
                           child: Text(
-                            "00`11",
+                            itemModel.videos[0].duration.toString() ?? "",
                             style: TextStyle(
                                 color: Colors.black87,
                                 fontSize: 13,
@@ -160,7 +167,7 @@ class _PlayListView extends State<PlayListView> {
               alignment: Alignment.center,
               children: [
                 Image.network(
-                  "https://guokrapp-static.guokr.com/4SGhqEYOAGV8CJkIbzaQcMp7vhdSsyTNeICaeIrNV-ThrB8f-OpXipzcGruI8bRCUQFl-EuBrzx-rMdD815TEYI-kL6BvqmLZ1hRLNRQkPU=.jpg",
+                  itemModel.coverImage,
                   height: 90,
                   width: 90,
                   fit: BoxFit.fitHeight,
@@ -178,25 +185,44 @@ class _PlayListView extends State<PlayListView> {
     );
   }
 
+  void _requestData() async {
+    Dio dio = Dio();
+    dio.options.responseType = ResponseType.plain;
+    var response = await dio.request(
+        "https://guokrapp-apis.guokr.com/hawking/v1/recommend/videos?limit=20&page=1&video_id=${widget.homeVideo.id.toString()}");
+    String content = response.data.toString();
+    List<DetailsListModel> dataArr = detailsListModelFromJson(content);
+    _listArr.addAll(dataArr);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _listArr = [DetailsListModel(),DetailsListModel()];
+    _requestData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ListView.separated(
           itemBuilder: (BuildContext context, int index) {
+            DetailsListModel model = _listArr[index];
             if (index == 0) {
-              return _titleView();
+              return _titleView(widget.homeVideo.title);
             }
             if (index == 1) {
               return _authorView();
             }
-            return _contenteItemView();
+            return _contenteItemView(model);
           },
           separatorBuilder: (BuildContext context, int index) {
             return Divider(
               height: 1,
             );
           },
-          itemCount: 10),
+          itemCount: _listArr.length),
     );
   }
 }
