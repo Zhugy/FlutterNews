@@ -119,80 +119,86 @@ class _HomeDepth extends State<HomeDepth> with AutomaticKeepAliveClientMixin {
   //消息
   Widget _message(HistoryTodayModel model) {
     return Container(
-      height: 83,
-      margin: EdgeInsets.only(left: 13, right: 13, top: 2, bottom: 2),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        boxShadow: [
-          BoxShadow(
-              offset: Offset(0, 0),
-              blurRadius: 10,
-              spreadRadius: 1,
-              color: Colors.grey)
-        ],
-      ),
-      child: Stack(children: <Widget>[
-        Center(
-          child: Row(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(left: 25),
-                child: Text(
-                  model.dateInfo.day,
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff191919)),
-                ),
-              ),
-              Container(
-                width: 4,
-                height: 27,
-                margin: EdgeInsets.only(left: 15, right: 13),
-                color: Colors.grey,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+        height: 83,
+        margin: EdgeInsets.only(left: 13, right: 13, top: 2, bottom: 2),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          boxShadow: [
+            BoxShadow(
+                offset: Offset(0, 0),
+                blurRadius: 10,
+                spreadRadius: 1,
+                color: Colors.grey)
+          ],
+        ),
+        child: Stack(
+          children: <Widget>[
+            Center(
+              child: Row(
                 children: <Widget>[
-                  Text(
-                    model.dateInfo.monthShort,
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff7f7f7f)),
-                  ),
-                  Text(model.dateInfo.year,
+                  Container(
+                    margin: EdgeInsets.only(left: 25),
+                    child: Text(
+                      model.dateInfo.day,
                       style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xff191919)))
+                          color: Color(0xff191919)),
+                    ),
+                  ),
+                  Container(
+                    width: 4,
+                    height: 27,
+                    margin: EdgeInsets.only(left: 15, right: 13),
+                    color: Colors.grey,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        model.dateInfo.monthShort,
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff7f7f7f)),
+                      ),
+                      Text(model.dateInfo.year,
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff191919)))
+                    ],
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 33, right: 36),
+                      child: Text(model.title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                              color: Color(0xffb1b1b1))),
+                    ),
+                  )
                 ],
               ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(left: 33, right: 36),
-                  child: Text(model.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          color: Color(0xffb1b1b1))),
-                ),
-              )
-            ],
-          ),
-        ),
-        GestureDetector(
-          onTap: (){
-            Navigator.of(context).push(PageRouteBuilder(barrierColor: Colors.white10,opaque: false,  pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-              return HistoryAlert(historyTodayModel: model);
-            }));
-          },
-        ),
-      ],)
-    );
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(PageRouteBuilder(
+                    barrierColor: Colors.white10,
+                    opaque: false,
+                    pageBuilder: (BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation) {
+                      return HistoryAlert(historyTodayModel: model);
+                    }));
+              },
+            ),
+          ],
+        ));
   }
 
   void _requestBannerData() async {
@@ -269,7 +275,4 @@ class _HomeDepth extends State<HomeDepth> with AutomaticKeepAliveClientMixin {
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
-
-
-
 }

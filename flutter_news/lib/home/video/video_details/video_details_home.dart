@@ -34,7 +34,7 @@ class _VideoDetailsHome extends State<VideoDetailsHome> {
         title: Text("播放器"),
       ),
       body: Container(
-        color: Colors.lightBlueAccent,
+        color: Colors.white,
         child: Column(
           children: [
             Player.defaultPlayer().createPlayerView(widget.videoUrl),
