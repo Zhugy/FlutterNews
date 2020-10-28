@@ -16,6 +16,7 @@ class _NewsKnowledge extends State<NewsKnowledge> with AutomaticKeepAliveClientM
       margin: EdgeInsets.only(left: 13, right: 13),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
             height: 276,
@@ -25,7 +26,7 @@ class _NewsKnowledge extends State<NewsKnowledge> with AutomaticKeepAliveClientM
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 45, left: 25, right: 25),
+            margin: EdgeInsets.only(top: 15),
             child:  Text(
                 model.title,
                 style: TextStyle(
@@ -35,9 +36,9 @@ class _NewsKnowledge extends State<NewsKnowledge> with AutomaticKeepAliveClientM
               ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 34, left: 25, right: 25),
+            margin: EdgeInsets.only(top: 14),
             child: Text(
-              model.description,
+              model.sources.first.introduction != null ? model.sources.first.introduction : "",
               style: TextStyle(
                   color: Color(0xffb2b2b2),
                   fontSize: 15,
@@ -45,7 +46,7 @@ class _NewsKnowledge extends State<NewsKnowledge> with AutomaticKeepAliveClientM
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 50,left: 25, right: 25, bottom: 25),
+            margin: EdgeInsets.only(top: 20,left: 2, right: 2, bottom: 15),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

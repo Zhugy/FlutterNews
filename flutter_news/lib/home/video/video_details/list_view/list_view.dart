@@ -189,7 +189,7 @@ class _PlayListView extends State<PlayListView> {
                       itemModel.coverImage,
                       height: 90,
                       width: 90,
-                      fit: BoxFit.fitHeight,
+                      fit: BoxFit.cover,
                     ),
                     SizedBox(
                       width: 45,
@@ -219,7 +219,7 @@ class _PlayListView extends State<PlayListView> {
   void initState() {
     super.initState();
     _title = widget.homeVideo.title;
-    _name = widget.homeVideo.sources.first.name;
+    _name = widget.homeVideo.sources.isNotEmpty ? widget.homeVideo.sources.first.name : "";
     _avatar = widget.homeVideo.sources.isNotEmpty ? widget.homeVideo.sources.first.avatar : "";
     _articleCount = widget.homeVideo.sources.first.articleCount;
 

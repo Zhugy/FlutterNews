@@ -13,6 +13,7 @@ class NewsKnowledgeModel {
     this.articleType,
     this.artificialTag,
     this.authors,
+    this.columns,
     this.coverImage,
     this.coverStatus,
     this.createdAt,
@@ -26,13 +27,15 @@ class NewsKnowledgeModel {
     this.title,
     this.unionAt,
     this.updatedAt,
+    this.videoArtificialTag,
     this.videos,
     this.wordCount,
   });
 
   ArticleType articleType;
-  String artificialTag;
+  ArtificialTag artificialTag;
   List<Author> authors;
+  List<dynamic> columns;
   String coverImage;
   int coverStatus;
   DateTime createdAt;
@@ -46,13 +49,15 @@ class NewsKnowledgeModel {
   String title;
   DateTime unionAt;
   DateTime updatedAt;
+  String videoArtificialTag;
   List<dynamic> videos;
   int wordCount;
 
   factory NewsKnowledgeModel.fromJson(Map<String, dynamic> json) => NewsKnowledgeModel(
     articleType: articleTypeValues.map[json["article_type"]],
-    artificialTag: json["artificial_tag"],
+    artificialTag: artificialTagValues.map[json["artificial_tag"]],
     authors: List<Author>.from(json["authors"].map((x) => Author.fromJson(x))),
+    columns: List<dynamic>.from(json["columns"].map((x) => x)),
     coverImage: json["cover_image"],
     coverStatus: json["cover_status"],
     createdAt: DateTime.parse(json["created_at"]),
@@ -66,14 +71,16 @@ class NewsKnowledgeModel {
     title: json["title"],
     unionAt: DateTime.parse(json["union_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    videoArtificialTag: json["video_artificial_tag"],
     videos: List<dynamic>.from(json["videos"].map((x) => x)),
     wordCount: json["word_count"],
   );
 
   Map<String, dynamic> toJson() => {
     "article_type": articleTypeValues.reverse[articleType],
-    "artificial_tag": artificialTag,
+    "artificial_tag": artificialTagValues.reverse[artificialTag],
     "authors": List<dynamic>.from(authors.map((x) => x.toJson())),
+    "columns": List<dynamic>.from(columns.map((x) => x)),
     "cover_image": coverImage,
     "cover_status": coverStatus,
     "created_at": createdAt.toIso8601String(),
@@ -87,6 +94,7 @@ class NewsKnowledgeModel {
     "title": title,
     "union_at": unionAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
+    "video_artificial_tag": videoArtificialTag,
     "videos": List<dynamic>.from(videos.map((x) => x)),
     "word_count": wordCount,
   };
@@ -98,6 +106,15 @@ final articleTypeValues = EnumValues({
   "news": ArticleType.NEWS
 });
 
+enum ArtificialTag { EMPTY, ARTIFICIAL_TAG, PURPLE, FLUFFY }
+
+final artificialTagValues = EnumValues({
+  "编辑推荐": ArtificialTag.ARTIFICIAL_TAG,
+  "": ArtificialTag.EMPTY,
+  "果壳健康方向作者推荐": ArtificialTag.FLUFFY,
+  "美食主题中被多次推荐": ArtificialTag.PURPLE
+});
+
 class Author {
   Author({
     this.avatar,
@@ -106,18 +123,18 @@ class Author {
   });
 
   String avatar;
-  dynamic introduction;
+  String introduction;
   String name;
 
   factory Author.fromJson(Map<String, dynamic> json) => Author(
     avatar: json["avatar"],
-    introduction: json["introduction"],
+    introduction: json["introduction"] == null ? null : json["introduction"],
     name: json["name"],
   );
 
   Map<String, dynamic> toJson() => {
     "avatar": avatar,
-    "introduction": introduction,
+    "introduction": introduction == null ? null : introduction,
     "name": name,
   };
 }
@@ -133,40 +150,44 @@ class Source {
     this.name,
     this.newsArticleCount,
     this.videoArticleCount,
+    this.withRecommendations,
   });
 
   int articleCount;
   String avatar;
   int id;
-  dynamic introduction;
+  String introduction;
   bool isSubscribed;
   bool isThirdParty;
   String name;
   int newsArticleCount;
   int videoArticleCount;
+  bool withRecommendations;
 
   factory Source.fromJson(Map<String, dynamic> json) => Source(
     articleCount: json["article_count"],
     avatar: json["avatar"],
     id: json["id"],
-    introduction: json["introduction"],
+    introduction: json["introduction"] == null ? null : json["introduction"],
     isSubscribed: json["is_subscribed"],
     isThirdParty: json["is_third_party"],
     name: json["name"],
     newsArticleCount: json["news_article_count"],
     videoArticleCount: json["video_article_count"],
+    withRecommendations: json["with_recommendations"] == null ? null : json["with_recommendations"],
   );
 
   Map<String, dynamic> toJson() => {
     "article_count": articleCount,
     "avatar": avatar,
     "id": id,
-    "introduction": introduction,
+    "introduction": introduction == null ? null : introduction,
     "is_subscribed": isSubscribed,
     "is_third_party": isThirdParty,
     "name": name,
     "news_article_count": newsArticleCount,
     "video_article_count": videoArticleCount,
+    "with_recommendations": withRecommendations == null ? null : withRecommendations,
   };
 }
 
