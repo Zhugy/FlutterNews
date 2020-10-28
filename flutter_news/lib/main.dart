@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_news/Mine/mine.dart';
 import 'package:flutter_news/fans/fans.dart';
 import 'package:flutter_news/home/home.dart';
 
 void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   runApp(MyApp());
 }
 
