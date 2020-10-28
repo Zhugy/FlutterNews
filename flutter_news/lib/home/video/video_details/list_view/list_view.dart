@@ -4,10 +4,17 @@ import 'package:flutter_news/home/video/video_details/list_view/list_item_model.
 import 'package:flutter_news/home/video/video_model.dart';
 
 
-class PlayListView extends StatefulWidget {
+typedef ClickTapActionBlok = void Function(String videoUrl);
 
+class PlayListView extends StatefulWidget {
   final HomeVideo homeVideo;
-  PlayListView({Key key, @required this.homeVideo,});
+  final ClickTapActionBlok onClick;
+
+  PlayListView({
+    Key key,
+    @required this.homeVideo,
+    @required this.onClick,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -17,8 +24,12 @@ class PlayListView extends StatefulWidget {
 
 class _PlayListView extends State<PlayListView> {
   List<DetailsListModel> _listArr = [];
+  String _title ;
+  String _avatar;
+  int _articleCount;
+  String _name;
 
-  Widget _titleView(String title) {
+  Widget _titleView() {
     return Container(
         height: 85,
         padding: EdgeInsets.all(15),
@@ -26,15 +37,17 @@ class _PlayListView extends State<PlayListView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: Text(
-              title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),),
+            Expanded(
+              child: Text(
+                _title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
             Container(
               width: 30,
               height: 30,
@@ -68,8 +81,7 @@ class _PlayListView extends State<PlayListView> {
             children: [
               Container(
                 padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
-                child: Image.network(
-                    widget.homeVideo.sources.first.avatar),
+                child: Image.network(_avatar),
               ),
               Container(
                 padding: EdgeInsets.only(left: 20),
@@ -78,14 +90,14 @@ class _PlayListView extends State<PlayListView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.homeVideo.sources.first.name,
+                      _name,
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "频道共收录${widget.homeVideo.sources.first.articleCount}篇内容",
+                      "频道共收录${_articleCount.toString()}篇内容",
                       maxLines: 2,
                       style: TextStyle(
                           color: Colors.black87,
@@ -108,81 +120,88 @@ class _PlayListView extends State<PlayListView> {
   }
 
   Widget _contenteItemView(DetailsListModel itemModel) {
-    return Container(
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Container(
-              height: 90,
-              margin: EdgeInsets.only(left: 13),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: Text(
-                      itemModel.title,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 13,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: Text(
-                            itemModel.sources.isNotEmpty ? itemModel.sources.first.name : "这是空的",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 13,
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                        Container(
-                          child: Text(
-                            itemModel.videos[0].duration.toString() ?? "",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 13,
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(12),
-            height: 90,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.network(
-                  itemModel.coverImage,
+    return GestureDetector(
+        onTap: () {
+          widget.onClick(itemModel.videos.first.playUrl);
+          _setupData(itemModel);
+        },
+        child: Container(
+          color: Colors.white,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Container(
                   height: 90,
-                  width: 90,
-                  fit: BoxFit.fitHeight,
+                  margin: EdgeInsets.only(left: 13),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        child: Text(
+                          itemModel.title,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 13,
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Text(
+                                itemModel.sources.isNotEmpty
+                                    ? itemModel.sources.first.name
+                                    : "这是空的",
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                            ),
+                            Container(
+                              child: Text(
+                                itemModel.videos[0].duration.toString() ?? "",
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                SizedBox(
-                  width: 45,
-                  height: 45,
-                  child: Icon(Icons.play_circle_fill),
+              ),
+              Container(
+                margin: EdgeInsets.all(12),
+                height: 90,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.network(
+                      itemModel.coverImage,
+                      height: 90,
+                      width: 90,
+                      fit: BoxFit.fitHeight,
+                    ),
+                    SizedBox(
+                      width: 45,
+                      height: 45,
+                      child: Icon(Icons.play_circle_fill),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 
   void _requestData() async {
@@ -199,8 +218,23 @@ class _PlayListView extends State<PlayListView> {
   @override
   void initState() {
     super.initState();
-    _listArr = [DetailsListModel(),DetailsListModel()];
+    _title = widget.homeVideo.title;
+    _name = widget.homeVideo.sources.first.name;
+    _avatar = widget.homeVideo.sources.isNotEmpty ? widget.homeVideo.sources.first.avatar : "";
+    _articleCount = widget.homeVideo.sources.first.articleCount;
+
+    _listArr = [DetailsListModel(), DetailsListModel()];
     _requestData();
+  }
+
+  void _setupData(DetailsListModel model) {
+    _title = model.title;
+    _name = model.sources.first.name;
+    _avatar = model.sources.isNotEmpty ? model.sources.first.avatar : "";
+    _articleCount = model.sources.first.articleCount;
+
+    setState(() {
+    });
   }
 
   @override
@@ -210,7 +244,7 @@ class _PlayListView extends State<PlayListView> {
           itemBuilder: (BuildContext context, int index) {
             DetailsListModel model = _listArr[index];
             if (index == 0) {
-              return _titleView(widget.homeVideo.title);
+              return _titleView();
             }
             if (index == 1) {
               return _authorView();

@@ -16,9 +16,13 @@ class VideoDetailsHome extends StatefulWidget {
 }
 
 class _VideoDetailsHome extends State<VideoDetailsHome> {
+
+  String _videoUrl;
+
   @override
   void initState() {
     super.initState();
+    _videoUrl = widget.homeVideo.videos[0].playUrl;
   }
 
   @override
@@ -37,8 +41,14 @@ class _VideoDetailsHome extends State<VideoDetailsHome> {
         color: Colors.white,
         child: Column(
           children: [
-            Player.defaultPlayer().createPlayerView(widget.homeVideo.videos[0].playUrl),
-            Expanded(child: Container(child: PlayListView(homeVideo: widget.homeVideo,),)),
+            Player.defaultPlayer().createPlayerView(_videoUrl),
+            Expanded(child: Container(child: PlayListView(homeVideo: widget.homeVideo, onClick: (videoUrl){
+              _videoUrl = videoUrl;
+              setState(() {
+
+              });
+              print(videoUrl);
+            },),)),
           ],
         ),
       ),
